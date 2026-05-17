@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"><html><head>
+		<title>SAAE SOROCABA</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<script async="" src="//www.google-analytics.com/analytics.js"></script><script language="JavaScript" src="/gsan/javascript/portal/jquery-1.4.2.min.js"></script>
+		<script language="JavaScript" src="/gsan/javascript/portal/jquery.blockUI.js"></script>
+		<script language="JavaScript" src="/gsan/javascript/util.js"></script>
+		<link rel="stylesheet" href="/gsan/css/portal/saae_sorocaba/style.css" type="text/css">
+		<link rel="stylesheet" href="/gsan/css/portal/saae_sorocaba/jquery.theme.css" type="text/css">
+		
+		<style type="text/css">
+		
+			div.boxImoveis {
+					width: 60% !important;
+				    height: 50%;
+				    margin-left: -170px;
+					margin-top: -10px;
+				    overflow-y: scroll; 
+				    position: absolute;
+				    left: 30%;
+				    top: 50%;
+			}
+											 
+			.titulo1 {
+		      font-size: 17px;
+		      font-weight: bold;
+		      color: #008FD6;
+		      padding-top: 30px;
+		      padding-bottom: 15px;
+		    }
+		    
+		    .campo-input {
+		      width: 110px;                /* largura do campo */
+		      padding: 8px 12px;           /* espaçamento interno */
+		      border-radius: 6px;          /* cantos arredondados */
+		      font-size: 14px;
+		      font-family: Arial, sans-serif;
+		      color: #008fd6;
+		      font: 700 12px/1.6em Verdana;
+		
+		      /* Fundo com leve gradiente */
+		      background: linear-gradient(to bottom, #ffffff, #f8fcff);
+		
+		      /* Sombra externa suave (glow azul) */
+		      box-shadow: 0 0 6px rgba(0, 136, 255, 0.2);
+		
+		      outline: none; /* remove o contorno padrão ao focar */
+		      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+		    }
+		
+		    .custom-input:focus {
+		      border-color: #66afe9;
+		      box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+		    }
+		    
+		    .campo-botao {
+		      background: linear-gradient(to bottom, #4CAF50 0%, #2d682f 100%);
+		      border: 1px solid #1e5d21;
+		      border-radius: 6px;
+		      color: white;
+		      font-weight: bold;
+		      font-family: Arial, sans-serif;
+		      font-size: 14px;
+		      padding: 5px 15px;
+		      cursor: pointer;
+		      box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.6),
+		                  0 2px 4px rgba(0, 0, 0, 0.3);
+		      text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.5);
+		      transition: background 0.2s ease;
+		    }
+		
+		    .btn-ok:hover {
+		      background: linear-gradient(to bottom, #5ec760 0%, #2d682f 100%);
+		    }
+		
+		    .btn-ok:active {
+		      background: linear-gradient(to bottom, #2d682f 0%, #4CAF50 100%);
+		      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+		    }
+		    
+		    .campo-label {
+/* 		      font-family: Arial, Helvetica, sans-serif; */
+			  font: 12px/1.6em Verdana, Geneva, sans-serif;
+		      font-size: 12px;
+		      font-weight: bold;
+		      color: #737373;
+		    }
+		</style>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$3("#btnOk").on("click", function(e) {
+					let mensagem = "";
+					if (!$('#cpfOrCnpj').val()){
+						mensagem += "Informe CPF/CNPJ<br>";
+					}
+					if (!$('#senhaAcesso').val()){
+						mensagem += "Informe SENHA DE ACESSO";
+					}
+					
+					if (mensagem){
+						$.blockUI({
+							message : '<img alt="Aviso" src="imagens/portal/saae_sorocaba/icons/warning.png" alt="Aviso" style="float: left; padding-right:10px; margin-top: 10px;"><h3 style="text-align:center; padding-top:10px; padding-bottom: 10px;">'+mensagem+'</h3><a href="javascript:$.unblockUI();" class="ui-corner-all button confirm">OK</a>',
+							theme : true,
+							title : 'Aviso'
+						});
+						
+						e.preventDefault();
+					} else {
+
+						$.blockUI({
+							message : $('#avisoVinculoImoveis'),
+							theme : true,
+							title : 'Aviso',
+							onBlock : function() {
+								$('.ui-widget-overlay').removeClass('ui-widget-overlay');
+							}
+						});
+
+						$('.confirm').click(function() {
+							$("#form-matricula2").submit();
+						});
+					}
+				});
+				
+			});
+			
+			function esqueciMinhaSenha(){
+				let form = document.forms[1];
+				form.action = "/gsan/exibirServicosPortalSaaeSorocabaAction.do?method=exibirEsqueciMinhaSenha";
+				form.submit();
+			}
+
+			function gerarContaSimplificadaAtual(){
+				var form = document.forms[0];  	
+				if(form.matricula.value == "") {
+					alert("Informe a matrícula do imóvel");
+					return;
+				}	else {
+					abrirPopupCentralizado('exibirContasImovelPortalSaaeSorocabaAction.do?idImovel=' + document.forms[0].matricula.value, 400, 720);
+				}
+			}
+
+// 			}
+		</script>
+		
+	</head>
+	
+	<body>
+	 <script src="https://chatinject.gsan.com.br/badjxv/inject.js"></script>
+		<div id="container">
+	    	
+
+
+
+
+
+
+
+
+
+	<script language="JavaScript" src="/gsan/javascript/portal/jquery.blockUI.js"></script>
+	<script language="JavaScript">
+	
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-60594060-6', 'auto');
+	ga('send', 'pageview');
+
+	</script>
+	<script language="JavaScript" src="/gsan/javascript/jquery/jquery-3.2.1.min.js"></script>
+	<script>
+		var $3 = jQuery.noConflict();
+	</script>
+	<script async="" defer="" src="https://pulsecdn.consensotec.com.br/cdn/pulse.js" data-pulse-app-id="b2f0c4b3-3201-4c2e-bea7-5b727bd792ce"></script>	
+
+
+
+   	<!-- Início Cabe&ccedil;alho -->
+     <div id="top">
+     	<a href="exibirServicosPortalSaaeSorocabaAction.do?menu=sim" title="SAAE Sorocaba">
+        	<img src="/gsan/imagens/portal/saae_sorocaba/general/loja-virtual.png" alt="Mosaico" style="width:auto;float:none;">
+     	</a>
+     </div>
+     <!-- Fim Cabe&ccedil;alho -->
+
+
+
+	        
+	        <div id="content" style="margin-bottom: 20px;">
+	        	<div id="text-top" style="text-align:justify;">
+					O Atendimento Virtual do Serviço Autônomo de Água e Esgoto de Sorocaba é o ambiente onde se encontram disponíveis os serviços da empresa. Esta é a forma mais rápida de atendimento, tudo para facilitar a sua vida.					
+	            </div>
+	            <div id="info-index" class="box">
+	            	<a href="exibirInformacoesPortalSaaeSorocabaAction.do" title="Informações | Tire suas dúvidas e entenda sua conta">
+	                    <span id="text-box" style="text-align:justify;">
+	                    	Este acesso permitirá esclarecimentos sobre diversos serviços que a SAAE oferece aos seus clientes. Para conhecer estes serviços ou tirar suas dúvidas clique no link informações.
+	                    </span>
+	                </a>
+	                <form name="ExibirServicosPortalSaaeSorocabaActionForm" method="post" action="/gsan/exibirServicosPortalSaaeSorocabaAction.do;jsessionid=_z2mnrSDS39SaY_FZM_nAUL8LhWQinCKRxrfkbQM.sorocaba-gsanas?method=servicos" id="form-matricula1">
+						<fieldset class="box">
+	                    	<table>
+	                    		<tbody><tr>
+	                     			<td colspan="2">
+	                     				<p class="titulo1">Conta Simplificada - Fatura Atual</p>
+	                     			</td>
+	                     		</tr>
+	                    		<tr>
+	                     			<td colspan="2">
+	                     				<p style="width: 330px;">Para emitir a conta simplificada digite a matrícula de sua conta de água <b>SEM DÍGITO VERIFICADOR</b> e clique em OK.</p>
+	                     			</td>
+	                     		</tr>
+	                        	<tr>
+	                     			<td>
+	                     				<label class="campo-label" for="matricula" style="width:auto;">MATRÍCULA:</label>
+	                     			</td>
+	                     			<td>
+<!-- 	                     				<input name="matricula" id="matricula" type="text" class="campo-text" size="9" maxlength="9" tabindex="2" onkeypress="javascript: return isCampoNumerico(event);"/> -->
+	                     				<input name="matricula" id="matricula" type="text" class="campo-input" size="9" maxlength="9" tabindex="2" onkeypress="javascript: return isCampoNumerico(event);" style="">
+	                     				 
+	                        			<button type="button" value="" onclick="javascript: gerarContaSimplificadaAtual();" class="campo-botao" id="btnOkMatricula">Ok</button>
+	                     			</td>
+	                     		</tr>
+	                     	</tbody></table>
+	                    </fieldset>
+	                </form>
+	            </div>
+	            <div id="servicos-index" class="box" style="height: 460px;">
+                    <span id="text-box" style="text-align:justify;" title="Serviços | Os melhores serviços para sua comodidade">
+						Para acessar o menu de opções informe o CPF/CNPJ, a senha de acesso e clique em Acessar:
+					</span>
+				    <form name="ExibirServicosPortalSaaeSorocabaActionForm" method="post" action="/gsan/exibirServicosPortalSaaeSorocabaAction.do;jsessionid=_z2mnrSDS39SaY_FZM_nAUL8LhWQinCKRxrfkbQM.sorocaba-gsanas?method=servicos" id="form-matricula2">
+						<fieldset class="box">
+	                     	<table>
+	                     		<tbody><tr>
+	                     			<td>
+	                     				<label class="campo-label" for="cpfOrCnpj" style="width:auto;" id="lCpfOrCnpj">CPF/CNPJ:</label>
+	                     			</td>
+	                     			<td>
+	                     				<input type="text" name="cpfCnpjSolicitante" id="cpfOrCnpj" class="campo-input" size="15" maxlength="14" tabindex="1" onkeypress="javascript: return isCampoNumerico(event);" style="">
+	                     				
+										
+									    
+										
+										
+										
+										
+	                     			</td>
+	                     		</tr>
+	                     		<tr>
+	                     			<td>
+	                     				<label class="campo-label" for="senhaAcesso" style="width:auto;">SENHA DE ACESSO:</label>
+	                     			</td>
+	                     			<td>
+	                     				<input type="password" name="senhaAcesso" id="senhaAcesso" class="campo-input" size="9" maxlength="8" tabindex="2" style=""> 
+	                        			<button type="button" value="" class="campo-botao" id="btnOk">Ok</button>
+	                     			</td>
+	                     		</tr>
+	                     		<tr>
+	                     			<td>
+	                     			</td>
+	                     			<td>
+	                     				<a style="text-decoration:underline" href="javascript:esqueciMinhaSenha();">Esqueci minha senha </a>
+	                     			</td>
+	                     		</tr>
+	                     		<tr>
+	                     			<td>
+	                     			</td>
+	                     			<td>
+	                     				<a style="text-decoration:underline" href="/gsan/exibirServicosPortalSaaeSorocabaAction.do?method=exibirCadastrarSenhaAcesso">Cadastre a senha de acesso</a>
+	                     			</td>
+	                     		</tr>
+	                     	</tbody></table>
+	                     </fieldset>
+	                </form>              
+	            </div>
+	        </div>
+	        <!-- Content - End -->
+	        
+	       
+
+
+
+
+
+
+
+	
+	
+	
+	
+	     <!-- Footer - Start -->
+	     <div id="footer" align="center">
+	     	<h4>Canais de atendimento</h4>
+	         <ul>
+	         	<li id="link-1"><a href="exibirCanaisAtendimentoSaaeSorocabaAction.do?method=lojasatendimento" title="Lojas de atendimento presencial">Lojas de atendimento presencial</a></li>
+	            <li id="link-2"><a href="exibirCanaisAtendimentoSaaeSorocabaAction.do?method=teleatendimento" title="Teleatendimento 0800 770 1195">Tele atendimento 0800 770 1195</a></li>
+	            <li id="link-3"><a href="exibirCanaisAtendimentoSaaeSorocabaAction.do?method=ouvidoria" title="Ouvidoria">Ouvidoria</a></li>
+	         </ul>
+	         <address>Serviço Autônomo de Água e Esgoto de Sorocaba - SAAE</address>
+	     </div>
+	     <style type="text/css">
+#maisDeUmaAba {
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   position: fixed;
+   display: block;
+   opacity: 0.8;
+   background-color: #fff;
+   z-index: 99;
+   text-align: center;
+}
+
+#maisDeUmaAba-image {
+  position: absolute;
+  top: 200px;
+  z-index: 100;
+} 
+			
+#maisDeUmaAbaTexto {
+   height: 10em;
+   position: relative
+ }
+              
+#maisDeUmaAbaTexto p {
+   margin: 0;
+   position: absolute;               
+   top: 90%;
+   transform: translate(90%, 0%) 
+}
+</style>
+
+<div id="maisDeUmaAba" style="display: none;">
+	<div id="maisDeUmaAbaTexto">
+		<p>Foi detectado o acesso à funcionalidade usando mais de
+			uma Aba.</p>
+	</div>
+</div>
+
+<script type="text/javascript">
+	function ocultarMaisDeUmaAba(){
+		$('#maisDeUmaAba').hide();
+	}
+	
+	function exibirMaisDeUmaAba(){
+		$('#maisDeUmaAba').show();
+	}
+	
+	//validacao em javascript para descobrir se ha
+	//mais de uma aba aberta na mesma tela.
+	localStorage.openpages = Date.now();
+	var onLocalStorageEvent = function(e){
+	    if(e.key == "openpages"){
+	        localStorage.page_available = Date.now();
+	    }
+	
+	     if(e.key == "page_available"){
+	    	 exibirMaisDeUmaAba();
+	    }
+	};
+	window.addEventListener('storage', onLocalStorageEvent, false);
+</script>
+	
+
+	    </div>
+	    
+	    
+	    
+	    <!-- Avisos -->
+		
+		
+		
+		
+		
+		
+		
+		
+				
+		
+	
+<div class="blockUI" style="display:none"></div><div class="blockUI blockOverlay" style="z-index: 1000; position: fixed;"></div><div class="blockUI blockMsg blockPage ui-dialog ui-widget ui-corner-all ui-widget-content" style="z-index: 1001; position: fixed; width: 43%; top: 35%; left: 33%;"><div class="ui-widget-header ui-dialog-titlebar ui-corner-all blockTitle">Aviso</div><div class="ui-widget-content ui-dialog-content"><div id="avisoVinculoImoveis" style="cursor: default;">
+	        <h3 style="font-weight: bold; text-align: left; margin: 0;">
+	        	Os imóveis vinculados ao seu CPF serão exibidos automaticamente após o login.<br><br>
+			    Caso algum imóvel não esteja disponível para consulta, verifique se o CPF do titular está atualizado no cadastro.<br><br>
+			    Se o CPF não estiver vinculado corretamente, será necessário comparecer pessoalmente ao Setor de Atendimento do SAAE Sorocaba para regularização dos dados.<br><br>
+	        </h3> 
+			<a href="javascript:void(0);" class="ui-corner-all button confirm">OK</a>
+		</div></div></div></body></html>
